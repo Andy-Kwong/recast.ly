@@ -4,12 +4,14 @@ import VideoPlayer from './VideoPlayer.js';
 import exampleVideoData from '../data/exampleVideoData.js';
 import YOUTUBE_API_KEY from '../config/youtube.js';
 import searchYoutube from '../lib/searchYoutube.js';
+import Search from './Search.js';
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentVideo: exampleVideoData[0],
+      currentVideo: exampleVideoData[0], //changed from exampleVideoData[0] to null
       data: [],
     };
   }
@@ -19,7 +21,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em> view goes here</h5></div>
+            <div><em>search</em> <Search search={this.search.bind(this)}/></div>
           </div>
         </nav>
         <div className="row">
@@ -46,6 +48,7 @@ class App extends React.Component {
   }
 
   search(query) {
+    console.log(query);
     query = query || 'cats';
 
     var options = {
@@ -65,15 +68,6 @@ class App extends React.Component {
     };
 
     searchYoutube(options, updateState);
-  }
-
-  componentWillUnmount() {
-
-  }
-
-  handleSearch(text) {
-    // get text from search bar
-    // send text to search(text);
   }
 
   // Method handleClick()
